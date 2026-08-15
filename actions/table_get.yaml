@@ -1,0 +1,22 @@
+ref: servicenow.table_get
+label: "Get Allowed Table Record"
+description: "Get one credential-allowlisted table record by sys_id"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: servicenow_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: servicenow.credentials, required: true, description: "Pack-owned encrypted ServiceNow profile Key ref"}
+  table: {type: string, required: true}
+  sys_id: {type: string, required: true, pattern: "^[0-9a-fA-F]{32}$"}
+  fields: {type: array, items: {type: string}, description: "Read-allowlisted fields; defaults to all allowed fields"}
+  timeout_seconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+output:
+  operation: {type: string}
+  data: {type: object}
+  meta: {type: object}
+tags: [servicenow, table, read]

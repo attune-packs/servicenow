@@ -1,0 +1,24 @@
+ref: servicenow.table_delete
+label: "Delete Allowed Table Record"
+description: "Delete one credential-allowlisted record by sys_id after exact confirmation and preflight"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: servicenow_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: servicenow.credentials, required: true, description: "Pack-owned encrypted ServiceNow profile Key ref"}
+  table: {type: string, required: true}
+  sys_id: {type: string, required: true, pattern: "^[0-9a-fA-F]{32}$"}
+  confirmation: {type: string, required: true, description: "Must exactly equal DELETE <table>:<sys_id>"}
+  expected_sys_updated_on: {type: string}
+  if_match: {type: string}
+  timeout_seconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+output:
+  operation: {type: string}
+  data: {type: object}
+  meta: {type: object}
+tags: [servicenow, table, destructive]

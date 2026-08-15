@@ -1,0 +1,37 @@
+ref: servicenow
+label: "ServiceNow"
+description: "Restricted ServiceNow Table, incident, change, attachment, CMDB, and directory REST actions"
+version: "0.1.0"
+author: "Attune; adapted from work by James Fryman and StackStorm Exchange contributors"
+email: "support@attune.systems"
+system: false
+enabled: true
+
+conf_schema: {}
+config: {}
+
+meta:
+  category: integration
+  documentation_url: "https://www.servicenow.com/docs/bundle/zurich-api-reference/page/integrate/inbound-rest/concept/c_RESTAPI.html"
+  repository_url: "https://github.com/attune-packs/servicenow"
+  source_revision: "15bc510dc05143562497b9974805ed1fba189885"
+  source_version: "1.0.0-4-g15bc510"
+  license: "Apache-2.0"
+
+tags: [servicenow, itsm, incident, change, cmdb, integration]
+runtime_deps: [python]
+dependencies: []
+
+testing:
+  enabled: true
+  discovery:
+    method: directory
+    path: tests
+  runners:
+    python:
+      type: unittest
+      entry_point: tests/test_pack.py
+      timeout: 120
+      result_format: simple
+  min_pass_rate: 1.0
+  on_failure: block

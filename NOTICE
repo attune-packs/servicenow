@@ -1,0 +1,13 @@
+This product includes a substantially modified adaptation of the StackStorm
+Exchange ServiceNow pack, version 1.0.0, originally attributed to James Fryman.
+
+Source: https://github.com/StackStorm-Exchange/stackstorm-servicenow
+Revision: 15bc510dc05143562497b9974805ed1fba189885
+Described version: 1.0.0-4-g15bc510
+Revision date: 2021-12-19
+License: Apache License 2.0
+
+The implementation, action selection, authentication, safety controls, tests,
+and Attune component metadata have been substantially modified. No upstream
+NOTICE file exists at the verified revision. The upstream dependency on
+pysnow 0.6.5 is not included.

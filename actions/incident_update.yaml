@@ -1,0 +1,23 @@
+ref: servicenow.incident_update
+label: "Update Incident"
+description: "Patch curated non-lifecycle incident fields by sys_id with optional conflict guards"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: servicenow_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: servicenow.credentials, required: true, description: "Pack-owned encrypted ServiceNow profile Key ref"}
+  sys_id: {type: string, required: true, pattern: "^[0-9a-fA-F]{32}$"}
+  record: {type: object, required: true, description: "Curated incident update fields; lifecycle fields are excluded"}
+  expected_sys_updated_on: {type: string}
+  if_match: {type: string}
+  timeout_seconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+output:
+  operation: {type: string}
+  data: {type: object}
+  meta: {type: object}
+tags: [servicenow, incident, write]

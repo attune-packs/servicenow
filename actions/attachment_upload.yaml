@@ -1,0 +1,25 @@
+ref: servicenow.attachment_upload
+label: "Upload Record Attachment"
+description: "Upload one confined artifact file to an allowed, verified record"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: servicenow_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: servicenow.credentials, required: true, description: "Pack-owned encrypted ServiceNow profile Key ref"}
+  table: {type: string, required: true, description: "Table in credential attachment_table_allowlist"}
+  record_sys_id: {type: string, required: true, pattern: "^[0-9a-fA-F]{32}$"}
+  artifact_path: {type: string, required: true, description: "Relative path confined beneath ATTUNE_ARTIFACTS_DIR"}
+  file_name: {type: string, maxLength: 255, description: "Remote file name without path separators"}
+  content_type: {type: string, maxLength: 255}
+  max_bytes: {type: integer, minimum: 1, maximum: 1073741824, default: 104857600}
+  timeout_seconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+output:
+  operation: {type: string}
+  data: {type: object}
+  meta: {type: object}
+tags: [servicenow, attachment, write]
